@@ -9,7 +9,7 @@ import java.util.Enumeration;
 
 /**
  * Process webserver configuration
- * @author student name
+ * @author prakash parasuram
  */
 public class Config {
     public static final String PORT = "port";
@@ -17,22 +17,30 @@ public class Config {
     public static final String DEFAULTFOLDER = "defaultFolder";
 
     private static final String CONFIG_FILE = "./TinyWS.xml";
-    private static Properties properties;
+    private static Properties properties = new Properties();
+    /**
+     * Constructor Config()
+     * @author prakash parasuram
+     * this reads Property file in CONFIG_FILE and populates XML properties in properties
+     * as key value pairs
+     */
     public Config() {
-        // TODO code here
-        properties = new Properties();
+        // properties = new Properties();
         try {
             this.readProperties();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            TinyWS.fatalError(e);
         } catch (IOException e) {
             e.printStackTrace();
+            TinyWS.fatalError(e);
         }
     }
-
+    /**
+     * readProperties() this reads Property file in CONFIG_FILE and populates XML properties in properties as key value pairs
+     * @author prakash parasuram
+     */
     public void readProperties() throws IOException {
-        // TODO code here
-
                 File file = new File(CONFIG_FILE);
                 FileInputStream fileInput = new FileInputStream(file);
                 // Properties properties = new Properties();
@@ -40,13 +48,22 @@ public class Config {
                 fileInput.close();
 
     }
-
+    /**
+     * getProperty(String key) this returns value of the key given in xml
+     * @author prakash parasuram
+     * @param key
+     * @return keyValue as a string
+     * as key value pairs
+     */
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
-
+    /**
+     * this just dumps all properties to standard out
+     * dumpProperties()
+     * @author prakash parasuram
+     */
     public void dumpProperties() {
-        // TODO code here
             Enumeration enuKeys = properties.keys();
             while (enuKeys.hasMoreElements()) {
                 String key = (String) enuKeys.nextElement();

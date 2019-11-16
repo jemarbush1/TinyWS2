@@ -1,5 +1,7 @@
 package edu.cscc;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * TinyWS a simplistic Tiny Web Server
  * @author student name here
@@ -16,7 +18,15 @@ public class TinyWS {
     }
 
     public TinyWS() {
-       // TODO Constructor code here
+       Config config = new Config();
+       port = parseInt(config.getProperty(Config.PORT));
+       defaultFolder = config.getProperty(Config.DEFAULTFOLDER);
+       defaultPage = config.getProperty(Config.DEFAULTPAGE);
+       config.dumpProperties();
+        System.out.println("-- TinyWS properties are --");
+        System.out.println(Config.PORT + ":" + port);
+        System.out.println(Config.DEFAULTFOLDER + ":" + defaultFolder);
+        System.out.println(Config.DEFAULTPAGE + ":" + defaultPage);
     }
 
     public void listen() {

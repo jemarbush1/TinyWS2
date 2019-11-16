@@ -1,30 +1,45 @@
 package edu.cscc;
-
+/**
+ * This class is constructed with a request string which is parsed into path and validRequest boolean
+ * @author prakash parasuram
+ */
 public class HTTPRequest {
     private String request;         // request string
     private String path;            // path to file
     private boolean validRequest;   // is request valid?
-
+    /**
+     * constructor with a request string which is parsed into path and validRequest boolean
+     * @param r string passed by web browser to http server
+     */
     public HTTPRequest(String r) {
-        // TODO Constructor
         this.request = r;
-        this.validRequest = parse(r);
+        if (!(this.validRequest = parse(r)))
+            TinyWS.fatalError(r);
     }
-
+    /**
+     * return boolean whether the string this object was created with is good
+     * @return boolean whether the string this object was created with is good
+     */
     public boolean isValidRequest() {
         return (validRequest);
     }
-
+    /**
+     * return path of this object
+     * @return path of this object
+     */
     public String getPath() {
         return (path);
     }
 
-    // TODO uncomment
+    /**
+     * constructor with a request string which is parsed into path and validRequest boolean, populates object property path
+     * @param r string sent from browser
+     * @return boolean whether the string this object was created with is good
+     */
     private boolean parse(String r) {
-        //  TODO code here
         String parsedArray [] ;
         parsedArray = r.split("[ \t\n?]");
-        if (parsedArray[0].equals("GET") ||
+        if (!(parsedArray[0].equals("GET")) ||
             !(parsedArray[1].contains("/")))
             return false;
         else {
