@@ -43,45 +43,6 @@ public class ResponseHandler {
     /**
      * Send HTTP Response
      */
-    public void sendResponse2(Socket connection) throws IOException {
-        byte[] response = null;
-        int sendbufsize = connection.getSendBufferSize();
-        byte[] fileBytes = {};
-        BufferedOutputStream out = new BufferedOutputStream(
-                connection.getOutputStream(), sendbufsize);
-        File file = new File("html/index.html");
-        try {
-            fileBytes = new byte[(int) file.length()];
-            InputStream is = new FileInputStream(file);
-            is.read(fileBytes);
-            is.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            TinyWS.fatalError(e);
-        } catch (IOException e) {
-            e.printStackTrace();
-            TinyWS.fatalError(e);
-        }        // dress it up now
-        // System.arraycopy()
-        byte[] header ={};
-        byte[] mime = {};
-        byte[] twoNewLines ={};
-        header= HTTP_OK_HEADER.getBytes();
-        mime = "text/html".getBytes();
-        twoNewLines = "\n\n".getBytes();
-        // we stitch together header, mime, 2 new lines, and the file
-        byte[] dest = new byte[header.length + mime.length + twoNewLines.length+fileBytes.length];
-        System.arraycopy(header, 0, dest, 0, header.length);
-        System.arraycopy(mime, 0, dest, header.length, mime.length);
-        System.arraycopy(twoNewLines, 0, dest, header.length+mime.length, twoNewLines.length);
-        System.arraycopy(fileBytes, 0, dest, header.length+mime.length+twoNewLines.length, fileBytes.length);
-        response = dest;
-        out.write(response);
-    }
-
-    /**
-     * Send HTTP Response
-     */
     public void sendResponse(Socket connection) throws IOException {
         byte[] response = null;
         int sendbufsize = connection.getSendBufferSize();
@@ -102,13 +63,14 @@ public class ResponseHandler {
             mime = getMimeType(request.getPath()).getBytes();
         twoNewLines = "\n\n".getBytes();
         // we stitch together header, mime, 2 new lines, and the file
-        byte[] dest = new byte[header.length + mime.length + twoNewLines.length];
+        byte[] dest = new byte[header.length + mime.length + twoNewLines.length + response.length];
         System.arraycopy(header, 0, dest, 0, header.length);
         System.arraycopy(mime, 0, dest, header.length, mime.length);
         System.arraycopy(twoNewLines, 0, dest, header.length+mime.length, twoNewLines.length);
         System.arraycopy(response, 0, dest, header.length+mime.length+twoNewLines.length, response.length);
         response = dest;
-        out.write(response);
+        out.write(response,0,response.length);
+        out.flush();
     }
 
     // Find requested file, assume Document Root is in html folder in project directory
@@ -117,7 +79,7 @@ public class ResponseHandler {
         // document root = .\html
         File file;
         byte[] fileData = {};
-        String docRoot = ".\\html";
+        String docRoot = "./html";
         if (path == null) {
             setResponseCode(HTTP_NOT_FOUND);
             return null;
@@ -168,8 +130,9 @@ public class ResponseHandler {
     private String getMimeType(String path) {
         String mimeType = null;
         String[] pathArray;
-        pathArray = path.split(".");
-        switch (pathArray[1].toLowerCase()) {
+        pathArray = path.split("\\.");
+        // pathArray.length = n, then n-1 = last item
+        switch (pathArray[pathArray.length - 1].toLowerCase()) {
             case "html":
                 mimeType = "text/html";
                 break;

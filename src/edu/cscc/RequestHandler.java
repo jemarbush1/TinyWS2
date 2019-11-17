@@ -22,7 +22,7 @@ public class RequestHandler {
             else
                 System.out.println("good request: " + inString);
             ResponseHandler responseHandler = new ResponseHandler(httpRequest);
-            responseHandler.sendResponse2(connection);
+            responseHandler.sendResponse(connection);
         } catch (IOException e) {
             e.printStackTrace();
             TinyWS.fatalError(e);
