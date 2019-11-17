@@ -43,8 +43,12 @@ public class HTTPRequest {
      * @return boolean whether the string this object was created with is good
      */
     private boolean parse(String r) {
+        System.out.println("printing r "+r);
         String parsedArray [] ;
+        if (r == null)
+            return false; // for some reason firefox refresh ctl shift  r gives a null string
         parsedArray = r.split("[ \t\n?]");
+        System.out.println(parsedArray.toString());
         if (!(parsedArray[0].equals("GET")) ||
             !(parsedArray[1].contains("/")))
             return false;

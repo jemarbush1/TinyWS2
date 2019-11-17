@@ -72,36 +72,6 @@ public class TinyWS {
 
 
     }
-    public void socket (int portNumber){
-        try {
-            serverSocket = new ServerSocket(portNumber);
-            clientSocket = serverSocket.accept();
-            PrintWriter out =
-                    new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
-
-            TinyWS.log(clientSocket.getInetAddress().getCanonicalHostName());
-            // Initiate conversation with client
-            KnockKnockProtocol kkp = new KnockKnockProtocol();
-            outputLine = kkp.processInput(null);
-            // System.out.println(outputLine);
-            out.println(outputLine);
-
-            while ((inputLine = in.readLine()) != null) {
-                // System.out.println(inputLine);
-                outputLine = kkp.processInput(inputLine);
-                // System.out.println(outputLine);
-                out.println(outputLine);
-                if (outputLine.equals("Bye."))
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            TinyWS.fatalError(e);
-        }
-    }
-
     /**
      * Log web server requests
      * @param s - message to log
