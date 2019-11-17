@@ -4,6 +4,10 @@ package edu.cscc;
  * @author prakash parasuram
  */
 public class HTTPRequest {
+    public String getRequest() {
+        return request;
+    }
+
     private String request;         // request string
     private String path;            // path to file
     private boolean validRequest;   // is request valid?
@@ -13,8 +17,10 @@ public class HTTPRequest {
      */
     public HTTPRequest(String r) {
         this.request = r;
-        if (!(this.validRequest = parse(r)))
+        if (!(this.validRequest = parse(r))) {
+            TinyWS.log(r);
             TinyWS.fatalError(r);
+        }
     }
     /**
      * return boolean whether the string this object was created with is good
