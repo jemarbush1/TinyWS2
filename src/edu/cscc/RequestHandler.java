@@ -41,7 +41,7 @@ public class RequestHandler {
     private String readRequest() throws IOException {
         String inputLine;
         // Set socket timeout to 500 milliseconds
-        // connection.setSoTimeout(500);
+        connection.setSoTimeout(500);
         int recbufsize = connection.getReceiveBufferSize();
         InputStream in = connection.getInputStream();
         BufferedReader inBuf = new BufferedReader(new InputStreamReader(in));
