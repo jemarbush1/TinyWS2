@@ -1,6 +1,6 @@
 package edu.cscc;
 /**
- * @author Prakash Parasuram
+ * @author prakash parasuram, Jemar Bush, Luis Espinal
  */
 
 import org.junit.Test;

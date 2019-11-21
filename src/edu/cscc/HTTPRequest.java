@@ -1,7 +1,7 @@
 package edu.cscc;
 /**
  * This class is constructed with a request string which is parsed into path and validRequest boolean
- * @author prakash parasuram
+ * @author prakash parasuram, Jemar Bush, Luis Espinal
  */
 public class HTTPRequest {
     public String getRequest() {

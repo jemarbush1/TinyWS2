@@ -9,7 +9,7 @@ import java.util.Enumeration;
 
 /**
  * Process webserver configuration
- * @author prakash parasuram
+ * @author prakash parasuram, Jemar Bush, Luis Espinal
  */
 public class Config {
     public static final String PORT = "port";
@@ -20,7 +20,7 @@ public class Config {
     private static Properties properties = new Properties();
     /**
      * Constructor Config()
-     * @author prakash parasuram
+     * @author prakash parasuram, Jemar Bush, Luis Espinal
      * this reads Property file in CONFIG_FILE and populates XML properties in properties
      * as key value pairs
      */
@@ -38,7 +38,7 @@ public class Config {
     }
     /**
      * readProperties() this reads Property file in CONFIG_FILE and populates XML properties in properties as key value pairs
-     * @author prakash parasuram
+     * @author prakash parasuram, Jemar Bush, Luis Espinal
      */
     public void readProperties() throws IOException {
                 File file = new File(CONFIG_FILE);
@@ -50,7 +50,7 @@ public class Config {
     }
     /**
      * getProperty(String key) this returns value of the key given in xml
-     * @author prakash parasuram
+     * @author prakash parasuram, Jemar Bush, Luis Espinal
      * @param key
      * @return keyValue as a string
      * as key value pairs
@@ -61,7 +61,7 @@ public class Config {
     /**
      * this just dumps all properties to standard out
      * dumpProperties()
-     * @author prakash parasuram
+     * @author prakash parasuram, Jemar Bush, Luis Espinal
      */
     public void dumpProperties() {
             Enumeration enuKeys = properties.keys();

@@ -10,8 +10,8 @@ import java.net.Socket;
 import static java.lang.Integer.parseInt;
 
 /**
- * TinyWS a simplistic Tiny Web Server
- * @author student name here
+ *
+ * @author prakash parasuram, Jemar Bush, Luis Espinal
  */
 public class TinyWS {
 
